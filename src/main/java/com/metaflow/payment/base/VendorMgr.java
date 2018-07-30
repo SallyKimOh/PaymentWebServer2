@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.jena.query.QuerySolution;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import com.metaflow.payment.comm.PropUtil;
 import com.metaflow.payment.model.Vendor.VendorInfo;
+import com.metaflow.payment.service.PaymentAgent;
 
 public class VendorMgr {
 	
@@ -65,13 +67,59 @@ public class VendorMgr {
 		
 	}
 	
+	public List<VendorInfo> createVendorInfoList(String dueDate) {
+
+		List<VendorInfo> list = new ArrayList<>();
+		
+		PropUtil util = new PropUtil();
+		String path = new PropUtil().getPropValue().getProperty("BILLPAYMENT_URL")+"?dueDate="+dueDate;
+
+		PaymentAgent agent = new PaymentAgent();
+		
+        List<QuerySolution> queryList = agent.ListPaymentInfo(dueDate);
+		
+        System.out.println(queryList);;
+		try {
+
+			queryList.forEach(item-> {
+				VendorInfo info = new VendorInfo();
+				
+        		info.setVendorID(item.get("madeto").toString());
+        		info.setVendorName(item.get("name").toString());
+        		info.setAmount(Double.parseDouble(item.get("amount").toString()));
+        		info.setTransDate(dueDate);
+
+//        		System.out.println("VendorID:"+billObj.get("vendorID"));
+        		info.setFinancialNumber(item.get("instNum").toString());
+        		info.setBranchNumber(item.get("branchNum").toString());
+        		info.setAccountNumber(item.get("acctNum").toString());
+        		
+                System.out.println(info);
+//                System.out.println(billObj.get("vendor_id"));
+                
+                list.add(info);
+			});
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			
+			System.out.println("error:"+e);
+			e.printStackTrace();
+		}
+
+		return list;
+
+		
+	}
 	
 	public static void main(String[] args)  {
 		
 		VendorMgr mgr = new VendorMgr();
-		List<VendorInfo> list = mgr.createVendorList("2018-05-15");
-		
-		System.out.println("list ==>"+list);
+//		List<VendorInfo> list = mgr.createVendorList("2018-06-30");
+		List<VendorInfo> list1 = mgr.createVendorInfoList("2018-06-30");
+//		System.out.println("list ==>"+list);
+		System.out.println("list1 ==>"+list1);
 	}
 	
 
