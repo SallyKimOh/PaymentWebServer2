@@ -21,7 +21,7 @@ public @Data class FileInfo {
 	
 	private String detailRecordTypeID;			//Detail Record Type ID
 	private String serviceIndicatorType;		//Detail Service indicator (C: Credit indicator/ D: Debit indicator)
-	private String institutionalID;			//Detail Institutional ID
+ 	private String institutionalID;			//Detail Institutional ID
 	private String institutionalBranchNo;		//Detail Institutional Branch No.
 	private String detailAccountNo;			//Payee/Payor's Account No.
 	private String amount;						//Amount(Cdn$)

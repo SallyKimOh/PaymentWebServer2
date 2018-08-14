@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.metaflow.payment</groupId>
-	<artifactId>PaymentWebService</artifactId>
+	<artifactId>PaymentWebService2</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>PaymentWebService</name>
+	<name>PaymentWebService2</name>
 	<description>payment project for Spring Boot</description>
 
 	<parent>
@@ -49,9 +49,10 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-            <groupId>com.googlecode.json-simple</groupId>
-            <artifactId>json-simple</artifactId>
-            </dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
+		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -71,11 +72,24 @@
 			<scope>provided</scope>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/javax.ws.rs/javax.ws.rs-api -->
-		<dependency>
-		    <groupId>javax.ws.rs</groupId>
-		    <artifactId>javax.ws.rs-api</artifactId>
-		    <version>2.1</version>
-		</dependency>		
+	    <dependency>
+	        <groupId>javax.ws.rs</groupId>
+	        <artifactId>javax.ws.rs-api</artifactId>
+	        <version>2.1-m09</version>
+	    </dependency>
+
+	    <dependency>
+	       <groupId>org.apache.jena</groupId>
+	       <artifactId>apache-jena-libs</artifactId>
+	       <type>pom</type>
+	       <version>3.4.0</version>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.apache.jena</groupId>
+	        <artifactId>jena-fuseki-embedded</artifactId>
+	        <version>3.4.0</version>
+	    </dependency>
+			
 	</dependencies>
 
 	<build>

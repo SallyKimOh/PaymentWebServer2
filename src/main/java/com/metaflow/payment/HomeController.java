@@ -10,12 +10,6 @@ import com.metaflow.payment.model.HomeInfo;
 
 @Controller
 public class HomeController {
-
-	@RequestMapping("/home1")
-	public String index(Model model) {
-		model.addAttribute("name", "SpringBlog from Millky");
-		return "home";
-	}	
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView showForm() {

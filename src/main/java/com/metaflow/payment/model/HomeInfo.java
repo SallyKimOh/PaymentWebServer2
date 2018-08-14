@@ -7,3 +7,4 @@ public @Data class HomeInfo {
     private String type;
 
 }
+ 

@@ -1,6 +1,5 @@
 package com.metaflow.payment.comm;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -11,39 +10,17 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-public class PropUtil {
-	static String filename = "config.properties";
-	
+public class PropUtil3 {
 	public Properties getPropValue() {
 		
 		Properties prop = new Properties();
-		InputStream input = null;
 		try {
-			
-			File external = new File("config.properties");
-			if (external.exists()) {
-				filename = external.getAbsolutePath();
-				System.out.println("1==>"+external.getAbsolutePath());
-			}
-			else 
-				System.out.println("no");		
-			
-			prop.load(new FileInputStream(filename));
-			
-			/*			
-//			prop.load(new FileInputStream(new ConstantsValue().PROPERTIES_PATH));
 			String filename = "config.properties";
-			System.out.println("===>"+getClass().getResourceAsStream(filename));
+			String rootPath = Thread.currentThread().getContextClassLoader().getResource("com\\metaflow\\zoho\\comm\\").getPath();
 			System.out.println("=pro==>"+getClass().getResource(filename));
-//			prop.load(getClass().getClassLoader().getResourceAsStream(filename));
-			prop.load(getClass().getResourceAsStream(filename));
-//			prop.load(PropUtil.class.getResourceAsStream("/config.properties"));
+			String appConfigPath = rootPath + filename;
+			prop.load(new FileInputStream(appConfigPath));
 			
-//			InputStream in = getClass().getResourceAsStream(filename);
-//			prop.load(in);
-//			in.close();			
-*/			
-			  
 		} catch (IOException ex) {
 			ex.printStackTrace();
 	    } 
@@ -138,8 +115,7 @@ public class PropUtil {
 		   	props = new PropUtil().getPropValue();
 		   	props.setProperty("BATCH_NUM",value);
 		
-//	        FileOutputStream fos = new FileOutputStream(path+"/config.properties");
-	        FileOutputStream fos = new FileOutputStream(filename);
+	        FileOutputStream fos = new FileOutputStream(path+"config.properties");
 		   
 	        //updating properites into properties file
 	        props.store(fos, "Properties file changed");

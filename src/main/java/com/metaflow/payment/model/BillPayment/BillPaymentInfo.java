@@ -9,4 +9,4 @@ public @Data class BillPaymentInfo extends VendorInfo{
 	private String billId;
 	private String transType;
 	
-}  
+}   

@@ -6,4 +6,4 @@ public @Data class JobType{
 	
 	private String jobType;
 }
-  
+   

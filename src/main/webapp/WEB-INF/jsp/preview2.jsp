@@ -6,9 +6,44 @@
 <%@page import="com.metaflow.payment.model.*" %>
 <%@page import="java.util.*" %>
 <%@page import="org.springframework.ui.Model" %>
+<%
+String fileName1 =(String)request.getAttribute("fileName");
+%>
 <html>
 <head>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script src="./script/calendar_beans_v2.2.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./script/jquery.mask.min.js" type="text/javascript" charset="utf-8"></script>
+<script>
+
+function modBatch()
+{	
+alert("changing batch no");
+var batchNo = $("#batchNo").val();
+//alert(batchNo);
+var fileName = $("#fileName").val();
+//alert(fileName);
+	$.ajax({
+		type : "GET",
+		url : '../modBatchNo?batchNo='+batchNo+'&fileName='+fileName,
+		dataType : "json",
+	    crossDomain:true,
+		success : function(data) {
+			alert("success")
+			console.log(data);
+			console.log(data.msg);
+//			alert("==succes:"+data);
+//			alert("==succes:"+data.msg);
+		},
+		error : function(data) {
+			alert("error");
+//				alert(data);
+		}
+		});
+} 
+
+</script>
     <link href="styles/table.css" rel="stylesheet" type="text/css">
 <title>Preview</title>
 <style>
@@ -134,10 +169,11 @@ NumberFormat formatter = NumberFormat.getCurrencyInstance();
                     <%=vo.getFileCreateDt()%>
                 </td>
                 <td class="test-result-table-header-cell">
-                    File CreateNumber
+                    Batch File Number
                 </td>
                 <td class="test-result-table-header-cell">
-                    <%=vo.getFileCreateNum()%>
+                    <input type="text" name="batchNo" id="batchNo" value="<%=vo.getFileCreateNum()%>" >
+                    <input type="button" onclick="modBatch()" value="Change">
                 </td>
             </tr>
             <tr class="test-result-step-row test-result-step-row-altone">
@@ -186,7 +222,8 @@ NumberFormat formatter = NumberFormat.getCurrencyInstance();
             <td class="test-result-table-header-cell">Description</td>
             <td><%=batchList.get(k).getFileVo().getBatHeaderDescStatement()%></td>
             <td class="test-result-table-header-cell">Due Date</td>
-            <td><%=batchList.get(k).getFileVo().getBatHeaderDueDate()%></td>
+            <td>
+            <%=String.valueOf(batchList.get(k).getFileVo().getBatHeaderDueDate()).substring(0,2)%>-<%=String.valueOf(batchList.get(k).getFileVo().getBatHeaderDueDate()).substring(2,4)%>-<%=String.valueOf(batchList.get(k).getFileVo().getBatHeaderDueDate()).substring(4,6)%></td>
         </tr>
     </table>
     <br>    
@@ -296,12 +333,12 @@ NumberFormat formatter = NumberFormat.getCurrencyInstance();
 	<form name=form>
     <p align="left"><a href='/download?filePath=${fileAbs }' download="<%=fileName%>">
     <input type="button" name="download" value="download" ></a></p>
-    <a href='/download?filePath=${fileAbs }' download="<%=fileName%>">
-    aaaaa</a>
+<!--     <a href='/download?filePath=${fileAbs }' download="<%=fileName%>">
+    aaaaa</a>  -->
     
     </form>
 <% } %>  
-
+<input type="hidden" id="fileName" value="<%=fileName %>">
   </br></br>
   <a href='/' ><input type="button" name="home" value="home" ></a>
  <script> 
